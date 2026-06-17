@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS PRECISION ENVIRONMENT CORPORATION</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ----------------------------------------------------
+           [0] DESIGN SYSTEM VARIABLES & BASE STYLES
+        ---------------------------------------------------- */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-surface: #FFFFFF;
+            --bg-surface-muted: #F1F5F9;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border-color: rgba(226, 232, 240, 0.8);
+            
+            --primary-navy: #0B192C;
+            --accent-teal: #1800a1;
+            --accent-emerald: #1800a1;
+            
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --shadow-sm: 0 2px 8px -1px rgba(11, 25, 44, 0.05);
+            --shadow-md: 0 12px 24px -4px rgba(11, 25, 44, 0.08);
+            --shadow-lg: 0 20px 40px -8px rgba(11, 25, 44, 0.12);
+            
+            --radius-md: 12px;
+            --radius-lg: 40px;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Dark Mode Override Variables */
+        html.dark {
+            --bg-primary: #040811;
+            --bg-surface: rgba(11, 19, 43, 0.65);
+            --bg-surface-muted: #111C3A;
+            --text-main: #F8FAFC;
+            --text-muted: #aebbc9;
+            --border-color: rgba(30, 41, 59, 0.7);
+            --glass-bg: rgba(4, 8, 17, 0.8);
+        }
+        /* ===================================
+        DARK MODE MOVING BLUE GRADIENT
+        =================================== */
+
+    html.dark body {
+    background:
+        radial-gradient(
+            ellipse at top left,
+            rgba(37,99,235,0.18),
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at bottom right,
+            rgba(24,0,161,0.12),
+            transparent 45%
+        ),
+        linear-gradient(
+            180deg,
+            #040811 0%,
+            #071120 50%,
+            #040811 100%
+        );
+        }
+
+       html.dark body::before {
+    content: "";
+    position: fixed;
+    inset: -100%;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(37, 99, 235, 0.15),
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 80% 60%,
+            rgba(59, 130, 246, 0.12),
+            transparent 55%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(24, 0, 161, 0.08),
+            transparent 60%
+        );
+
+    filter: blur(250px);
+    z-index: -1;
+
+    animation: atlasGradientMove 60s linear infinite;
+}
+        @keyframes atlasGradientMove {
+            0% {
+                transform: rotate(0deg) translateX(0);
+            }
+
+            25% {
+                transform: rotate(90deg) translateX(5%);
+            }
+
+            50% {
+                transform: rotate(180deg) translateX(10%);
+            }
+
+            75% {
+                transform: rotate(270deg) translateX(5%);
+            }
+
+            100% {
+                transform: rotate(360deg) translateX(0);
+            }
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Structural Grid Container */
+        .container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ----------------------------------------------------
+           [1] REUSABLE COMPONENTS & VISUAL EFFECTS
+        ---------------------------------------------------- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-teal);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #0b7c72;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+        }
+
+        .btn-secondary {
+            border-color: var(--border-color);
+            background-color: transparent;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-surface-muted);
+            transform: translateY(-2px);
+        }
+
+        /* Section Headings Styling Structure */
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 64px auto;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 25px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-teal);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--primary-navy);
+            line-height: 1.2;
+        }
+        html.dark .section-title {
+            color: #FFFFFF;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+ /* Light Mode: Vibrant Blue */
+        .highlight-blue {
+            color: #1800a1; /* Matches your --accent-teal brand blue */
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        /* Dark Mode: Clean Crisp White */
+        html.dark .highlight-blue {
+            color: #FFFFFF;
+        }
+        /* Scroll-Triggered Animation Anchors */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Highlight text helper */
+            .gradient-text {
+        background: linear-gradient(135deg, var(--accent-teal), var(--accent-emerald));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        /* ----------------------------------------------------
+           [2] PRELOADER & NAVIGATION BLOCK BAR
+        ---------------------------------------------------- */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-surface);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--bg-surface-muted);
+            border-top-color: var(--accent-teal);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 90;
+            padding: 24px 0;
+            transition: var(--transition-smooth);
+            border-bottom: 1px solid transparent;
+        }
+
+        header.scrolled {
+            padding: 16px 0;
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+       /* Logo */
+            .logo-img {
+                height: 50px; /* Change size here */
+                width: auto;
+                display: block;
+                object-fit: contain;
+
+                filter: none;
+                transition: all 0.35s ease;
+            }
+
+            /* Glow only when hovered */
+            .logo-img:hover {
+                transform: scale(1.08);
+            }
+
+        .nav-menu {
+            display: flex;
+            gap: 0px;
+        }
+
+        /* Forces nav links to be white when Dark Mode is active */
+        html.dark .nav-link {
+            color: #FFFFFF;
+        }
+
+        /* Retains your smooth neon hover aura effect in dark mode */
+        html.dark .nav-link:hover, 
+        html.dark .nav-link.active {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.384);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 0 15px rgba(0, 150, 255, 0.25),
+                0 0 30px rgba(0, 150, 255, 0.15);
+        }
+
+       .nav-link {
+        position: relative;
+        padding: 10px 15px;
+        border-radius: 10px;
+        color: #000000;
+        font-weight: 500;
+        transition: all .35s ease;
+    }
+
+    .nav-link:hover {
+        background: rgba(255,255,255,.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        border: 1px solid rgba(255,255,255,.15);
+
+        box-shadow:
+            0 0 15px rgba(0,150,255,.25),
+            0 0 30px rgba(0,150,255,.15),
+            inset 0 1px 1px rgba(255,255,255,.25);
+
+        color: darkblue;
+        font-weight: 600;
+}
+
+        .nav-actions {
+               display: flex;
+                align-items: center;
+                gap: 40px;
+                flex-shrink: 0;
+        }
+
+        /* Dark Mode Interface Toggle button system */
+        .mode-toggle {
+            background-color: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            position: relative;
+           top: 3px; /* Adjust this value */
+}
+    
+        .mode-toggle:hover {
+            background-color: var(--bg-surface-muted);
+            color: var(--accent-teal);
+        }
+
+        .mode-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-main);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+/* ----------------------------------------------------
+           [3] HERO ENGINE LAYOUT
+        ---------------------------------------------------- */
+        .hero {
+            position: relative;
+            padding: 80px 0 0px;
+            min-height: 50vh;
+            overflow: hidden;
+            z-index: 1; 
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%; 
+            height: 100%;
+
+            background-image: url("image/datacenters.JPG");
+            background-size: cover;
+            background-position: right center; 
+
+            /* SMOOTH BLENDING GRADIENT MASK */
+            mask-image: linear-gradient(
+                to left,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 1) 45%,
+                rgba(0, 0, 0, 0.6) 60%,
+                rgba(0, 0, 0, 0.15) 75%,
+                rgba(0, 0, 0, 0.01) 90%,
+                transparent 100%
+            );
+
+            -webkit-mask-image: linear-gradient(
+                to left,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 1) 45%,
+                rgba(0, 0, 0, 0.6) 60%,
+                rgba(0, 0, 0, 0.15) 75%,
+                rgba(0, 0, 0, 0.01) 90%,
+                transparent 100%
+            );
+
+            z-index: -2; 
+        }
+
+        /* LIGHT MODE OVERLAY (Fades seamlessly to pure white) */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%; 
+            height: 100%;
+            /* FIXED: Uses pure white variables to scrub away the blue tracking tint */
+            background: linear-gradient(to left, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.85) 75%, #ffffff 98%);
+            z-index: -1; 
+            pointer-events: none;
+            transition: var(--transition-smooth); /* Animates smoothly when toggling modes */
+        }
+
+        /* DARK MODE OVERLAY OVERRIDE (Switches to deep dark mode blue) */
+        html.dark .hero::before {
+            background: linear-gradient(to left, rgba(4, 8, 17, 0) 40%, rgba(4, 8, 17, 0.8) 75%, #040811 95%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            position: relative;
+            z-index: 2; 
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            color: var(--primary-navy);
+            margin-bottom: 24px;
+        }
+        html.dark .hero-text h1 { color: #FFFFFF; }
+
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 520px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            position: relative;
+            z-index: 3;
+        }
+       /* =========================
+   HERO MODEL IMAGE
+========================= */
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             position: relative;
+              z-index: 2;
+        }
+
+        .hero-model {
+            width: 500px; /* Adjust size here */
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+
+            transition: all 0.4s ease;
+        }
+
+ /* Optional hover effect */
+        .hero-model:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Ambient backgrounds */
+        .orb-blur {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(13, 148, 136, 0.08);
+            filter: blur(80px);
+            z-index: -1;
+            top: 10%;
+            left: -10%;
+            animation: pulse-ambient 8s infinite alternate;
+        }
+
+        @keyframes pulse-ambient {
+            to { transform: scale(1.1) translateY(20px); }
+        }
+
+        /* ----------------------------------------------------
+           [4] ABOUT US & STATS MODULE
+        ---------------------------------------------------- */
+        .about {
+            padding: 100px 0;
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-info h2 {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .about-info p {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            text-align: justify;
+        }
+
+        .about-bullets {
+            display: flex;
+            flex-col: column;
+            gap: 20px;
+        }
+
+        .bullet-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .bullet-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .bullet-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .bullet-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Stats Sub-Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+       .stat-card {
+            /* Glassmorphism Configuration for Light Mode */
+            background-color: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            
+            /* Crisp, glassy border detailing */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 8px 32px 0 rgba(11, 25, 44, 0.04),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+                
+            padding: 40px 24px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card:hover {
+            border-color: rgba(24, 0, 161, 0.4);
+            transform: translateY(-4px);
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 12px 40px -4px rgba(11, 25, 44, 0.08);
+        }
+
+        .stat-number {
+            font-size: 44px;
+            font-weight: 800;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+        }
+        html.dark .stat-number { color: #FFFFFF; }
+        
+        .stat-card:nth-child(2) .stat-number { color: var(--accent-teal); }
+        .stat-card:nth-child(3) .stat-number { color: var(--accent-emerald); }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #000000; /* Forces text description to pure black in light mode */
+            transition: color 0.3s ease;
+        }
+
+        /* Retains readability by switching back to a lighter muted gray in Dark Mode */
+        html.dark .stat-label {
+            color: white;
+        }
+
+        /* ----------------------------------------------------
+           [5] SERVICES CARD GRID
+        ---------------------------------------------------- */
+        .services {
+            padding: 90px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+
+            align-items: start;
+        }
+
+        /* SERVICE CARD FOR THE SERVICE*/
+                .service-card {
+                    position: relative;
+                    overflow: hidden;
+
+                    background: var(--bg-surface);
+
+                    border: 1px solid rgba(255,255,255,0.08);
+
+                    border-radius: var(--radius-lg);
+                    padding: 30px;
+
+                    transition: all .4s ease;
+
+                    box-shadow:
+                        0 8px 20px rgba(0,0,0,0.15),
+                        0 20px 40px rgba(0,0,0,0.08);
+                }
+
+
+                html.dark .service-card {
+                background: rgba(17, 28, 58, 0.75);
+
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+
+                border: 1px solid rgba(255,255,255,0.08);
+
+                box-shadow:
+                    0 10px 30px rgba(0,0,0,0.45),
+                    0 25px 60px rgba(0,0,0,0.35),
+                    inset 0 1px 0 rgba(255,255,255,0.08);
+            }
+            html.dark .service-card::before {
+                content: "";
+
+                position: absolute;
+                inset: 0;
+
+                border-radius: inherit;
+
+                background: linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.08),
+                    transparent 40%
+                );
+
+                pointer-events: none;
+            }
+
+            .service-card:hover {
+                transform: translateY(-12px);
+
+                border-color: rgba(24, 0, 161, 0.25);
+
+                box-shadow:
+                    0 10px 25px rgba(0,0,0,0.08),
+                    0 25px 50px rgba(24, 0, 161, 0.12);
+
+                background: #ffffff;
+            }
+        .service-icon {
+            width: 100%;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgb(61, 61, 61);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin-bottom: 10px;
+            transition: var(--transition-smooth);
+        }
+        .service-icon img {
+            display: block;
+            margin: 0 auto;
+        }
+        .service-card:hover .service-icon {
+            background-color: rgba(255, 255, 255, 0.733);
+            color: #FFFFFF;
+             transform: translateY(-5px); /* optional */
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .service-card p {
+            font-size: 20px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .service-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-top: 0;
+            color: var(--text-muted);
+            font-size: 15px;
+            text-align: justify;
+        }
+
+      .service-card.active .service-description {
+                max-height: 1000px;
+                opacity: 1;
+                margin-top: 15px;
+            }
+
+        /* ----------------------------------------------------
+           [6] PORTFOLIO MATRIX CAPABILITIES
+        ---------------------------------------------------- */
+        .portfolio {
+            padding: 100px 0;
+        }
+
+        .portfolio-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+        }
+
+        .portfolio-filters {
+            display: flex;
+            gap: 12px;
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: var(--text-main);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--accent-teal);
+            color: #FFFFFF;
+            border-color: var(--accent-teal);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 380px;
+            height: 380px;
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.15),
+                inset 0 1px 1px rgba(255,255,255,0.35);
+
+            transition: all .4s ease;
+        }
+
+          html.dark .portfolio-item {
+            background: rgba(255,255,255,0.04);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.45),
+                inset 0 1px 1px rgba(255,255,255,0.08);
+        }
+            .portfolio-item:hover {
+                transform: translateY(-8px);
+
+                border-color: rgba(24, 0, 161, 0.4);
+
+                box-shadow:
+                    0 15px 40px rgba(24, 0, 161, 0.2),
+                    inset 0 1px 1px rgba(255,255,255,0.5);
+        }
+
+                .portfolio-overlay {
+                position: absolute;
+                inset: 0;
+
+                display: flex;
+                flex-direction: column;
+
+                padding: 20px;
+
+                background: transparent;
+            }
+
+            .portfolio-item iframe {
+        width: 100%;
+        height: 300px;
+        border-radius: 15px;
+    }
+
+                .portfolio-item::before {
+                content: "";
+
+                position: absolute;
+                top: 0;
+                left: -120%;
+
+                width: 60%;
+                height: 100%;
+
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.15),
+                    transparent
+                );
+
+                transform: skewX(-20deg);
+            }
+
+            .portfolio-item:hover::before {
+                left: 180%;
+                transition: 1s;
+            }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+            .portfolio-tag {
+                font-size: 20px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: var(--accent-teal); /* Blue in light mode */
+                margin-bottom: 6px;
+            }
+
+            /* White in dark mode */
+            html.dark .portfolio-tag {
+                color: #FFFFFF;
+            }
+
+        .portfolio-overlay h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+            html.dark .portfolio-overlay h4 {
+                color: #FFFFFF;
+            }
+
+        /* ----------------------------------------------------
+           [7] CAROUSEL TESTIMONIAL SYSTEM
+        ---------------------------------------------------- */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .carousel-slide {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 10px;
+        }
+
+        .testimonial-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 48px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-size: 20px;
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author h5 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+        html.dark .testimonial-author h5 { color: #FFFFFF; }
+
+        .testimonial-author p {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .carousel-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: bold;
+        }
+
+        .carousel-arrow:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+        }
+
+        /* ----------------------------------------------------
+           [8] FAQ ACCORDION STRUCTURE
+        ---------------------------------------------------- */
+        .faq {
+            padding: 100px 0;
+            background-color: var(--bg-primary);
+        }
+
+        .faq-max {
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .faq-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .faq-item {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            text-align: justify;
+        }
+
+        .faq-toggle {
+            width: 100%;
+            padding: 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-icon {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background-color: var(--bg-surface-muted);
+        }
+
+        .faq-content p {
+            padding: 24px;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ----------------------------------------------------
+           [9] CONTACT PIPELINE & FOOTER ARCHITECTURE
+        ---------------------------------------------------- */
+        .contact {
+            padding: 120px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-details h2 {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .contact-details p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .info-link-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .info-link-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+        }
+
+        .info-link-icon {
+            font-size: 20px;
+            color: var(--accent-teal);
+        }
+
+        /* Interactive Form Elements */
+        .contact-form {
+            background-color: var(--bg-surface);
+            padding: 48px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 48px 0;
+            background-color: var(--bg-surface);
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* ----------------------------------------------------
+           [10] RESPONSIVE BREAKPOINT INTERFACES
+        ---------------------------------------------------- */
+        @media (max-width: 1024px) {
+            .hero-text h1 { font-size: 44px; }
+            .services-grid, .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid, .contact-grid { gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-surface);
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+                display: none;
+                box-shadow: var(--shadow-md);
+            }
+
+            .nav-menu.mobile-open {
+                display: flex;
+            }
+
+            .hero-grid, .about-grid, .services-grid, .portfolio-grid, .contact-grid, .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero { padding: 140px 0 60px 0; }
+            .hero-text, .hero-visual { text-align: center; justify-content: center; }
+            .hero-actions { justify-content: center; }
+            
+            .portfolio-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="ATLAS PRECISION ENVIRONMENT CORPORATIOn.html" class="logo">
+               <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\logo.png" alt="ATLAS PRECISION ENVIRONMENT CORPORATION" class="logo-img">
+            </a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">HOME</a></li>
+                <li><a href="#about" class="nav-link">ABOUT</a></li>
+                <li><a href="#services" class="nav-link">SERVICES</a></li>
+                <li><a href="#portfolio" class="nav-link">NEWS & UPDATES</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="mode-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                    <svg id="theme-icon" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+                <a href="#contact" class="btn btn-primary" style="padding: 10px 20px; font-size: 13px;">Get a Quote</a>
+                <button class="hamburger" id="menu-toggle" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="orb-blur"></div>
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <span class="section-tag">Product and Services Excellence</span>
+                <h1>Controlled Environment <span class="gradient-text">Specialist</span></h1>
+                <p>APEC delivers specialized infrastructure and environmental solutions designed to protect your most critical assets and ensure uninterrupted business operations.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\model.png"
+                alt="Hero Visual"
+                class="hero-model">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container about-grid">
+            <div class="about-info reveal">
+                <span class="section-tag">Who We Are</span>
+                <h2>Atlas Precision Environment Corporation</h2>
+                <p>
+                    (APEC) was founded on 1995, to provide
+                    solutions for Data Center and other controlled
+                    environmental facilities. APEC has consistently
+                    delivered high-quality services and innovative
+                    solutions for over 30 years of excellence. This
+                    milestone reflects commitment to exceeding
+                    client expectations and solidifies position as a
+                    reliable and experienced in the industry</p>
+                <div class="about-bullets">
+                    <div class="bullet-item">
+                        <div class="bullet-check">✓</div>
+                        <div>
+                            <h4 class="bullet-title">Our Mission</h4>
+                            <p class="bullet-desc">To be one of the leading solutions provider to industries utilizing controlled environment facilities.</p>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-check">✓</div>
+                        <div>
+                            <h4 class="bullet-title">Our Vision</h4>
+                            <p class="bullet-desc">To provide quality solutions to controlled environment facilities for client’s business sustainability and succes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-grid reveal">
+
+                 <div class="stat-card">
+                    <div class="stat-number"><span class="counter" data-target="30">0</span>+</div>
+                    <div class="stat-label">Years Delivering Controlled Environment Solutions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><span class="counter" data-target="99">0</span>%</div>
+                    <div class="stat-label">Client Retention Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><span class="counter" data-target="650">0</span>+</div>
+                    <div class="stat-label">Projects and Services Successfully Delivered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><span class="counter" data-target="100">0</span>+</div>
+                    <div class="stat-label">Corporate Clients Nationwide</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+
+            <div class="section-header reveal">
+                <span class="section-tag">Our Expertise</span>
+                <h2 class="section-title">APEC delivers specialized environmental
+                                            control solutions for critical facilities</h2>
+                <p class="section-desc">We also provide integrated services
+                                       <span class="highlight-blue">Maintenance and Installations</span> for
+                                        proper protection and optimized
+                                        operation of facilities.</p>
+                <p class="section-desc">We provide products solution such as:</p>
+            </div>
+            <div class="services-grid reveal">
+                <div class="service-card" onclick="toggleService(this)">
+                    <div class="service-icon">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\atom.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">    
+                    </div>
+                    <h3>Precision Air-conditioning Unit</h3>
+                    <div class="service-description">
+                        It provides accurate temperature and humidity control,
+                        ensuring optimal performance. By combining air processing
+                        functions, closed-tolerance parameters can be easily
+                        maintained.
+                        </div>
+                </div>
+                <div class="service-card" onclick="toggleService(this)">
+                    <div class="service-icon">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\resflor.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">    
+                    <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\resflor1.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">
+                    </div>
+                    <h3>Raise Flooring Systems</h3>
+                        <div class="service-description">
+                        A raised flooring system with complete line of raised-floor materials to cater to
+                        various range and scope from accommodations for the single mainframe to
+                        large corporate server farms, data center and to high-tech clean rooms. With
+                        rooms and the like must be well kept in order to provide an efficient working
+                        condition. This is also used to conceal and manage cables to avoid wire & cable
+                        cluttering.
+                        </div>
+                </div>
+                <div class="service-card" onclick="toggleService(this)">
+                    <div class="service-icon">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\antistatic.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">
+                    </div>
+                    <h3>Anti-Static Vinyl Tiles</h3>
+                     <div class="service-description">
+                       The conductive flooring prevents electrostatic discharge, ensuring safety and
+                        equipment protection in high-tech environments. It’s durable, slip-resistant, and
+                        easy-to-maintain surfaces enhances efficiency and longevity.
+                        </div>
+                </div>
+                <div class="service-card" onclick="toggleService(this)">
+                    <div class="service-icon">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\waterleak.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\waterleaklogo.png" alt="Precision Air-conditioning Unit" style="width: 100px; height: 100px;">
+                    </div>
+                    <h3>Water Leak Detection Systems</h3>
+                    <div class="service-description">
+                       A simple and easy to install complete monitoring system to detect early liquid
+                        leakage. Once leak is detected, its responses within a few seconds and provide
+                        liquid leakage location accurately
+                    </div>
+                </div>
+                <div class="service-card" onclick="toggleService(this)">
+                    <div class="service-icon">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\invtups.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">
+                    <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\invtupslogo.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 100px;">
+                    </div>
+                    <h3>Uninterruptible Power Supply</h3>
+                    <div class="service-description">
+                    A type of power source that is used in the event
+                    of a sudden power outage or for unexpected
+                    brownouts.
+                    </div>
+                </div>
+                <div class="service-card" onclick="toggleService(this)">
+                    <div class="service-icon">
+                        <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\firesuppression.png" alt="Precision Air-conditioning Unit" style="width: 150px; height: 150px;">
+                    </div>
+                    <h3>Fire Suppression System</h3>
+                    <div class="service-description">
+                    FM 200 / NOVEC 1230 is the clear choice for
+                    fast and clean fire extinguishing solution. It is
+                    chemically based fire inhibitation and cooling
+                    that is environmentally acceptable, safe to
+                    use with sensitive equipment, fast acting,
+                    efficient and effective
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ section id="portfolio" class="portfolio">
+    <div class="container">
+        <div class="portfolio-controls reveal">
+            <div>
+                <span class="section-tag">NEWS AND UPDATES </span>
+                <h2 class="section-title" style="text-align: left;">Products and Services</h2>
+            </div>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">NEWS & UPDATES</button>
+                <button class="filter-btn" data-filter="Projects">PROJECTS</button>
+                <button class="filter-btn" data-filter="Services">SERVICES</button>
+            </div>
+        </div>  
+        <div class="portfolio-grid reveal" id="portfolio-grid">
+            <div class="portfolio-item" data-category="Services">
+                <div class="portfolio-overlay">
+                    <span class="portfolio-tag">SERVICES</span>
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fatlasprecision%2Fposts%2Fpfbid0JgqBjBJt4YcDoMG9onToa5W86YKKepGHZ4eM7nMpDK7QiJHSq6Qsd9vT7tgvc5bWl&show_text=true&width=500" width="300" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="2px" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <h4>Weekly Water Analysis</h4>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="Services">
+                <div class="portfolio-overlay">
+                    <span class="portfolio-tag">SERVICES</span>
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fatlasprecision%2Fposts%2Fpfbid0319RnagQ8WHkpZdwHNnPDoXfwrGhUynuNoa1YHzTDDnw9yWurZ3j74kh9KSbTApbSl&show_text=true&width=500" width="300" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="2" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <h4>Service Call of Precision Aircon</h4>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="Projects">
+                <div class="portfolio-overlay">
+                    <span class="portfolio-tag">PROJECTS</span>
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fatlasprecision%2Fposts%2Fpfbid02RkUgbQ4SnPKoSp9ieQz8DPDR9GwakBYuYm9hTBpKYqJrTkCSRCDMvxQ8sgy4V3MSl&show_text=true&width=500" width="300" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <h4>Zero-Trust Node Setup</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="faq" class="faq">
+        <div class="container faq-max">
+            <div class="section-header reveal">
+                <span class="section-tag">Information Loop</span>
+                <h2 class="section-title">Frequently Addressed Inquiries</h2>
+            </div>
+
+            <div class="faq-stack reveal">
+                <div class="faq-item">
+                    <button class="faq-toggle">
+                        <span>Q: What does Atlas Precision Environment Corporation do? </span>
+                        <span class="faq-icon">↓</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>We specialize in designing, building, and maintaining precision-controlled environments such as cleanrooms, laboratories, and specialized industrial facilities. Our solutions ensure compliance, safety, and efficiency for industries that require strict environmental standards.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-toggle">
+                        <span>Q: Which industries do you serve?  </span>
+                        <span class="faq-icon">↓</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>We work with clients in pharmaceuticals, biotechnology, electronics, semiconductors, healthcare, food processing, and other sectors that demand controlled environments.</p>
+                    </div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-toggle">
+                        <span>Q: What services do you provide?</span>
+                        <span class="faq-icon">↓</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>Our services include:
+
+                    ,Cleanroom design and construction
+                    ,HVAC and Air Filtration Systems
+                    ,Environmental Monitoring and validation
+                    ,Facility Maintenance and Upgrades
+                    ,Compliance Consulting</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-toggle">
+                        <span>Q: Are your facilities compliant with international standards?  </span>
+                        <span class="faq-icon">↓</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>Absolutely. We design and build environments that comply with ISO standards, FDA regulations, GMP guidelines, and other global benchmarks.
+                    </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-toggle">
+                        <span>Q: Do you provide after-sales support?  </span>
+                        <span class="faq-icon">↓</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>Yes. We offer preventive maintenance, system upgrades, and technical support to ensure your facility continues to operate at peak performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container contact-grid">
+            <div class="contact-details reveal">
+                <span class="section-tag">COMMUNICATIONS HUB</span>
+                <h2>Begin a Precision Planning Dialogue</h2>
+                <p>Reach out directly to our live enterprise routing operations terminal to set performance scopes or map tailored subscription models.</p>
+                <div class="info-link-stack">
+                    <div class="info-link-item">
+                        <span class="info-link-icon">📍</span>
+                        <span>Unit 1503, 15th Floor, 139 Corporate Center, 139 Valero St., Salcedo Village, Brgy. Bel. Air Makati City</span>
+                    </div>
+                    <div class="info-link-item">
+                        <span class="info-link-icon">✉</span>
+                        <span>sales@apec.com.ph</span>
+                    </div>
+                    <div class="info-link-item">
+                        <span class="info-link-icon">☎</span>
+                        <span>8813.7653 / 8884.3651 / 8813.7664</span>
+                    </div>
+                    <div class="info-link-item">
+                        <div class="info-link-icon">
+                            <img src="C:\Users\user\Music\WEBSITE ATLAS PRECISION ENVIRONMENT CORPORATIO\image\facebook.png" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                        </div>
+                        <span><a href="https://www.facebook.com/atlasprecision" target="_blank">Facebook</a></span>
+                    </div>
+                </div>
+            </div>
+
+        <form class="contact-form reveal" id="form-module" action="https://api.web3forms.com/submit" method="POST">
+                
+                <input type="hidden" name="access_key" value="2f500c22-8c2e-4e2a-9c8d-f488dec3765c">
+
+                <input type="hidden" name="subject" value="New Inquiry - ATLAS PRECISION ENVIRONMENT CORP.">
+
+                <input type="hidden" name="from_name" value="Atlas Website Contact Form">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Corporate Title Identity</label>
+                        <input type="text" name="Corporate_Title_Identity" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Secure Contact Email</label>
+                        <input type="email" name="Secure_Contact_Email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Project Scope / Requirements</label>
+                    <textarea name="Project_Scope_Requirements" rows="5" required></textarea>
+                </div>
+
+                <input type="checkbox" name="botcheck" style="display: none;">
+
+                <button type="submit" class="btn btn-primary">SUBMIT REQUEST</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <p>© 2026 ATLAS PRECISION ENVIRONMENT CORPORATION. All global rights protected.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Rules Matrix</a>
+                <a href="#">System Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        // [9] Contact Form AJAX Transmission Layer
+        const formElement = document.getElementById('form-module');
+        
+        formElement.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevents the page from reloading completely
+            
+            const submitButton = formElement.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerText;
+            
+            // Visual Processing State Indicator
+            submitButton.innerText = "TRANSMITTING...";
+            submitButton.style.opacity = "0.7";
+            submitButton.style.pointerEvents = "none";
+
+            const formData = new FormData(formElement);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let res = await response.json();
+                if (response.status == 200) {
+                    // Success Scenario
+                    alert("Request dispatched smoothly! Our technical engineering group will reach out shortly.");
+                    formElement.reset(); // Safely clears out form entries
+                } else {
+                    // Error Scenario
+                    alert("Transmission pipeline bottleneck: " + res.message);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Network error occurred. Please check connectivity or email us directly.");
+            })
+            .then(() => {
+                // Restore Button Interface Elements back to default status
+                submitButton.innerText = originalButtonText;
+                submitButton.style.opacity = "1";
+                submitButton.style.pointerEvents = "auto";
+            });
+        });
+        
+        // [1] Preloader Termination Fade
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.remove(), 500);
+        });
+
+        // [2] Light & Dark Mode Semantic Switch Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const sunPath = "M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.121l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zm-.707-11.314a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z";
+        const moonPath = "M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z";
+
+        function switchThemeIcons() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.innerHTML = `<path d="${sunPath}"></path>`;
+            } else {
+                themeIcon.innerHTML = `<path d="${moonPath}"></path>`;
+            }
+        }
+
+        // Initialize Theme Config Mapping
+        if (localStorage.getItem('theme-preference') === 'dark' || (!('theme-preference' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        switchThemeIcons();
+
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme-preference', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            switchThemeIcons();
+        });
+
+        // [3] Transparent Sticky Glassmorphism Header Control
+        const header = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger UI Interaction Panel
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('mobile-open');
+        });
+        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => navMenu.classList.remove('mobile-open')));
+
+        // [4] Intersection Observer: Reveal Elements & Run Metric Counters
+        const revealElms = document.querySelectorAll('.reveal');
+        const counterElms = document.querySelectorAll('.counter');
+        let metricsFired = false;
+
+        function animateMetrics() {
+            if (metricsFired) return;
+            metricsFired = true;
+            counterElms.forEach(c => {
+                const limit = +c.getAttribute('data-target');
+                const pace = limit / 40;
+                const processCount = () => {
+                    const activeVal = +c.innerText;
+                    if (activeVal < limit) {
+                        c.innerText = Math.ceil(activeVal + pace);
+                        setTimeout(processCount, 30);
+                    } else {
+                        c.innerText = limit;
+                    }
+                };
+                processCount();
+            });
+        }
+
+        const viewObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (entry.target.querySelector('.counter')) {
+                        animateMetrics();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElms.forEach(el => viewObserver.observe(el));
+
+        // [5] Dynamic Module Filter Pipeline
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const targetScope = btn.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if (targetScope === 'all' || item.getAttribute('data-category') === targetScope) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 50);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // [6] Testimonial Smooth Slider Engine
+      const track = document.getElementById('carousel-track');
+const forwardBtn = document.getElementById('carousel-next');
+const backwardBtn = document.getElementById('carousel-prev');
+
+if (track && forwardBtn && backwardBtn) {
+
+    let activeSlide = 0;
+    const totalSlides = track.children.length;
+
+    function renderSlidePosition(pos) {
+        track.style.transform = `translateX(-${pos * 100}%)`;
+        activeSlide = pos;
+    }
+
+    forwardBtn.addEventListener('click', () => {
+        let index = activeSlide + 1;
+        if (index >= totalSlides) index = 0;
+        renderSlidePosition(index);
+    });
+
+    backwardBtn.addEventListener('click', () => {
+        let index = activeSlide - 1;
+        if (index < 0) index = totalSlides - 1;
+        renderSlidePosition(index);
+    });
+
+}
+
+// for the service Card button //
+            function toggleService(card) {
+
+                const allCards = document.querySelectorAll('.service-card');
+
+                allCards.forEach(item => {
+                    if(item !== card){
+                        item.classList.remove('active');
+                    }
+                });
+
+                card.classList.toggle('active');
+                }
+
+        // [7] Accordion Execution Logic
+                document.querySelectorAll('.faq-toggle').forEach(button => {
+
+                button.addEventListener('click', () => {
+
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('.faq-icon');
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+
+                });
+
+            });
+
+        // Prevent standard form tracking
+        document.getElementById('form-module').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Corporate operational data packet dispatched smoothly.');
+        });
+    </script>
+</body>
+</html>
